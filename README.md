@@ -1,4 +1,4 @@
-# 📹 SmolVLM Realtime Webcam
+# 📹 SmolVLM Realtime Webcam [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 > Real-time webcam interaction with vision language models via Ollama
 
@@ -53,6 +53,12 @@
 - **CORS Error?** → Start Ollama with `OLLAMA_ORIGINS=*`
 - **Camera blocked?** → Grant permissions and use HTTPS/localhost
 - **No response?** → Ensure you're using a vision model, not text-only
+
+---
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
