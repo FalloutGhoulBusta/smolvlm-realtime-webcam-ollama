@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Camera Interaction App</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <style>
         body {
             font-family: sans-serif;
@@ -79,7 +80,7 @@
     <div class="io-areas">
         <div>
             <label for="baseURL">Base API:</label><br>
-            <input id="baseURL" name="Instruction" value="http://localhost:8080"></textarea>
+            <input id="baseURL" name="Instruction" value="http://localhost:11434"></textarea>
         </div>
         <div>
             <label for="instructionText">Instruction:</label><br>
@@ -120,21 +121,21 @@
 
         // Returns response text (string)
         async function sendChatCompletionRequest(instruction, imageBase64URL) {
-            const response = await fetch(`${baseURL.value}/v1/chat/completions`, {
+            const response = await fetch(`${baseURL.value}/api/chat`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    max_tokens: 100,
+                    model: "hf.co/mradermacher/SmolLM2-135M-Instruct-GGUF:Q2_K", // or another vision model like "llava:7b", "llava:13b", "bakllava"
                     messages: [
-                        { role: 'user', content: [
-                            { type: 'text', text: instruction },
-                            { type: 'image_url', image_url: {
-                                url: imageBase64URL,
-                            } }
-                        ] },
-                    ]
+                        {
+                            role: "user",
+                            content: instruction,
+                            images: [imageBase64URL.split(',')[1]] // Remove data:image/jpeg;base64, prefix
+                        }
+                    ],
+                    stream: false
                 })
             });
             if (!response.ok) {
@@ -142,7 +143,7 @@
                 return `Server error: ${response.status} - ${errorData}`;
             }
             const data = await response.json();
-            return data.choices[0].message.content;
+            return data.message.content;
         }
 
         // 1. Ask for camera permission on load

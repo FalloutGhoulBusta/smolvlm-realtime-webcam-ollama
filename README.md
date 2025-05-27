@@ -1,15 +1,59 @@
-# SmolVLM real-time camera demo
+# 📹 SmolVLM Realtime Webcam
 
-![demo](./demo.png)
+> Real-time webcam interaction with vision language models via Ollama
 
-This repository is a simple demo for how to use llama.cpp server with SmolVLM 500M to get real-time object detection
+## 🚀 Quick Start
 
-## How to setup
+1. **Install Ollama** and pull a vision model:
+   ```bash
+   ollama pull llava
+   # or: ollama pull llava:7b, llava:13b, bakllava
+   ```
 
-1. Install [llama.cpp](https://github.com/ggml-org/llama.cpp)
-2. Run `llama-server -hf ggml-org/SmolVLM-500M-Instruct-GGUF`  
-   Note: you may need to add `-ngl 99` to enable GPU (if you are using NVidia/AMD/Intel GPU)  
-   Note (2): You can also try other models [here](https://github.com/ggml-org/llama.cpp/blob/master/docs/multimodal.md)
-3. Open `index.html`
-4. Optionally change the instruction (for example, make it returns JSON)
-5. Click on "Start" and enjoy
+2. Start Ollama with CORS enabled:
+   ```bash
+   set OLLAMA_ORIGINS=* && ollama serve
+   ```
+
+3. Serve the HTML file:
+   ```bash
+   python -m http.server 8000
+   ```
+
+4. Open [http://localhost:8000](http://localhost:8000) in your browser
+
+## 🎯 Features
+
+- 📸 **Live Webcam Capture** - Real-time video feed
+- 🤖 **AI Vision Analysis** - Describe what the camera sees
+- ⚡ **Configurable Intervals** - 100ms to 2s between requests
+- 🔄 **Continuous Processing** - Start/stop with one click
+
+## ⚙️ Configuration
+
+- **Base API**: `http://localhost:11434` (Ollama default)
+- **Model**: Must be a vision-capable model from Ollama library
+  - ✅ `llava`, `llava:7b`, `llava:13b`, `bakllava`
+  - ❌ Text-only models won't work
+- **Instruction**: Customize what you want the AI to analyze
+
+## 🤖 Ollama Models Tested
+
+- [moondream](https://ollama.com/library/moondream) - A vision model optimized for real-time analysis
+- [hf.co/mradermacher/SmolLM2-135M-Instruct-GGUF:Q2_K](https://huggingface.co/mradermacher/SmolLM2-135M-Instruct-GGUF) - Lightweight instruct-tuned model for efficient processing
+
+## 🛠️ Requirements
+
+- Modern browser with webcam access
+- Ollama with a vision model installed
+- Local HTTP server (Python, Node.js, etc.)
+
+## 🔧 Troubleshooting
+
+- **CORS Error?** → Start Ollama with `OLLAMA_ORIGINS=*`
+- **Camera blocked?** → Grant permissions and use HTTPS/localhost
+- **No response?** → Ensure you're using a vision model, not text-only
+
+---
+
+Built for real-time AI vision interaction 🎥✨
